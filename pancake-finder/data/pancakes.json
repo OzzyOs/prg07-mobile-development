@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Lilith (Witte de Withstraat)",
+    "latitude": 51.9175,
+    "longitude": 4.4820,
+    "latitudeDelta": 0.0922,
+    "longitudeDelta": 0.0421,
+    "description": "Trendy spot for American-style pancakes and brunch in Rotterdam."
+  },
+  {
+    "id": 2,
+    "name": "Bertmans (Nieuwe Binnenweg)",
+    "latitude": 51.9130,
+    "longitude": 4.4720,
+    "latitudeDelta": 0.0922,
+    "longitudeDelta": 0.0421,
+    "description": "Healthy, creative breakfast and pancake options in a cozy setting."
+  },
+  {
+    "id": 3,
+    "name": "by Jarmusch East (Goudsesingel 64)",
+    "latitude": 51.9030,
+    "longitude": 4.4920,
+    "latitudeDelta": 0.0922,
+    "longitudeDelta": 0.0421,
+    "description": "Classic American diner serving pancakes all day."
+  },
+  {
+    "id": 4,
+    "name": "Pannenkoekenhuis de Nachtegaal (Kralingse Bos)",
+    "latitude": 51.9290,
+    "longitude": 4.5310,
+    "latitudeDelta": 0.0922,
+    "longitudeDelta": 0.0421,
+    "description": "Traditional Dutch pancake house in a scenic park location."
+  },
+  {
+    "id": 5,
+    "name": "Seth Poffertjes / Seth Poffertjessalon",
+    "latitude": 51.9155,
+    "longitude": 4.4785,
+    "latitudeDelta": 0.0922,
+    "longitudeDelta": 0.0421,
+    "description": "Famous for poffertjes, the classic Dutch mini pancakes."
+  }
+]
