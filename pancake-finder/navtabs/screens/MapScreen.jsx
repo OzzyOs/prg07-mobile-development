@@ -5,7 +5,8 @@ import data from '../../data/pancakes.json';
 
 export default function MapScreen() {
     const [restaurants, setRestaurants] = useState(data)
-    console.log(data);
+    // console.log(data);
+
     return (
         <View style={{height: "100%"}}>
               <MapView
