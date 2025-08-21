@@ -7,27 +7,51 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-export default function MyTabs() {
+export default function MyTabs({ isDarkMode, setIsDarkMode }) {
   return (
     <Tab.Navigator>
-        
       <Tab.Screen
         name="Favorites"
         component={FavoritesScreen}
-        />
-
-      <Tab.Screen 
-        name="Pancake Finder" 
-        component={MapScreen}
-        />
-
-      <Tab.Screen 
-        name="Settings" 
-        component={SettingsScreen} 
+        options={{
+          headerRight: () => (
+            <Pressable
+              onPress={() => setIsDarkMode(!isDarkMode)}
+              style={{ marginRight: 15 }}
+            >
+              <Text>{isDarkMode ? "☀️" : "🌙"}</Text>
+            </Pressable>
+          ),
+        }}
       />
-
-      
-
+      <Tab.Screen
+        name="Pancake Finder"
+        component={MapScreen}
+        options={{
+          headerRight: () => (
+            <Pressable
+              onPress={() => setIsDarkMode(!isDarkMode)}
+              style={{ marginRight: 15 }}
+            >
+              <Text>{isDarkMode ? "☀️" : "🌙"}</Text>
+            </Pressable>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          headerRight: () => (
+            <Pressable
+              onPress={() => setIsDarkMode(!isDarkMode)}
+              style={{ marginRight: 15 }}
+            >
+              <Text>{isDarkMode ? "☀️" : "🌙"}</Text>
+            </Pressable>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -41,6 +65,6 @@ const styles = StyleSheet.create({
     },
 
 })
-   
+
 
 
