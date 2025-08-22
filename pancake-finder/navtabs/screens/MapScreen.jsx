@@ -1,5 +1,5 @@
-import {View, StyleSheet} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import {View, StyleSheet, Text} from 'react-native';
+import MapView, { Marker, Callout } from 'react-native-maps';
 // import data from '../../data/pancakes.json';
 
 export default function MapScreen({pancakeData}) {
@@ -25,8 +25,13 @@ export default function MapScreen({pancakeData}) {
                         longitude: i.coordinates.longitude,
                     }}
                     title={i.name}
-                    description={i.description}
-                    />
+                    >
+                        <Callout>
+                            <View style={{maxWidth: 200, height: 150, display: 'flex', overflow:'hidden'}}>
+                                <Text>{i?.description}</Text>
+                            </View>
+                        </Callout>
+                        </Marker>
                 ))}
             </MapView>     
         </View>
