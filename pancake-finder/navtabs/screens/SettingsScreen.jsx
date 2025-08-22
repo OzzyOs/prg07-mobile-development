@@ -1,9 +1,13 @@
 import {View, Text} from 'react-native';
+import { useTheme } from '@react-navigation/native';
 
 export default function SettingsScreen () {
+
+    const {colors} = useTheme();
+    
     return (
         <View>
-            <Text>Ello</Text>
+            <Text style={{color: colors.text}}>Ello</Text>
         </View>
     )
 }

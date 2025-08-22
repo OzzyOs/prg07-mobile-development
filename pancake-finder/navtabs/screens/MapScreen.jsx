@@ -1,10 +1,9 @@
-import {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import data from '../../data/pancakes.json';
+// import data from '../../data/pancakes.json';
 
-export default function MapScreen() {
-    const [restaurants, setRestaurants] = useState(data)
+export default function MapScreen({pancakeData}) {
+    const data = pancakeData ?? [];
     // console.log(data);
 
     return (
@@ -18,14 +17,12 @@ export default function MapScreen() {
                         longitudeDelta: 0.0421,
                 }}
                 >
-                {restaurants.map((i, index) => (
+                {data.map((i, index) => (
                     <Marker 
                     key={i.id}
                     coordinate={{
-                        latitude: i.latitude,
-                        longitude: i.longitude,
-                        latitudeDelta: i.latitudeDelta,
-                        longitudeDelta: i.longitudeDelta
+                        latitude: i.coordinates.latitude,
+                        longitude: i.coordinates.longitude,
                     }}
                     title={i.name}
                     description={i.description}

@@ -7,12 +7,13 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-export default function MyTabs({ isDarkMode, setIsDarkMode }) {
+export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Favorites"
         component={FavoritesScreen}
+        initialParams={{ isDarkMode }}
         options={{
           headerRight: () => (
             <Pressable
@@ -26,7 +27,6 @@ export default function MyTabs({ isDarkMode, setIsDarkMode }) {
       />
       <Tab.Screen
         name="Pancake Finder"
-        component={MapScreen}
         options={{
           headerRight: () => (
             <Pressable
@@ -36,11 +36,14 @@ export default function MyTabs({ isDarkMode, setIsDarkMode }) {
               <Text>{isDarkMode ? "☀️" : "🌙"}</Text>
             </Pressable>
           ),
-        }}
-      />
+        }}>
+          {props => <MapScreen {...props} pancakeData={pancakeData} />}
+      </Tab.Screen>
+
       <Tab.Screen
         name="Settings"
         component={SettingsScreen}
+        initialParams={{ isDarkMode }}
         options={{
           headerRight: () => (
             <Pressable
