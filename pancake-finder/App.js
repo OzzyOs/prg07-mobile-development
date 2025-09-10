@@ -31,6 +31,7 @@ export default function App() {
     }
   }
 
+  // Functie om UI kleuren lokaal op te slaan.
   const saveDarkMode = async (value) => {
     try {
       await AsyncStorage.setItem('isDarkMode', JSON.stringify(value));
@@ -39,11 +40,17 @@ export default function App() {
     }
   }
 
+  // Handler om darkMode te registreren.
   const handleDarkModeChange = (value) => {
     setIsDarkMode(value);
     saveDarkMode(value);
   };
 
+  // Deze functie voert zich uit op elke refresh van de applicatie.
+  // variabel probeert de opgeslagen darkmode op te halen
+  // als de waarde bestaat, parse JSON string naar een boolean
+  // & update the staat van de applicatie met de 'setIsDarkMode'.
+  // Als er geen waarde is gevonden houd de applicatie de standaard staat.
   useEffect(()=> {
     const loadDarkMode = async () => {
       try {
@@ -52,11 +59,12 @@ export default function App() {
             setIsDarkMode(JSON.parse(savedMode));
           }
       } catch (error) {
-          console.error('Error loading darfk mode:', error)
+          console.error('Error loading dark mode:', error)
       }
     };
     loadDarkMode(); 
   }, [])
+  
   // Deze functie probeert data, met een fetch request, op te halen van webservice
   // wacht vervolgens de response af, als de response correct is, vult het de pancakeData
   // met de data uit het response.
