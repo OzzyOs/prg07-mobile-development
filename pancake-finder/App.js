@@ -1,7 +1,8 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import MyTabs from './navtabs/MyTabs';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function App() {
   // State management
@@ -30,6 +31,32 @@ export default function App() {
     }
   }
 
+  const saveDarkMode = async (value) => {
+    try {
+      await AsyncStorage.setItem('isDarkMode', JSON.stringify(value));
+    } catch (error) {
+      console.error ('Error saving dark mode', error);
+    }
+  }
+
+  const handleDarkModeChange = (value) => {
+    setIsDarkMode(value);
+    saveDarkMode(value);
+  };
+
+  useEffect(()=> {
+    const loadDarkMode = async () => {
+      try {
+        const savedMode = await AsyncStorage.getItem('isDarkMode');
+          if (savedMode !== null) {
+            setIsDarkMode(JSON.parse(savedMode));
+          }
+      } catch (error) {
+          console.error('Error loading darfk mode:', error)
+      }
+    };
+    loadDarkMode(); 
+  }, [])
   // Deze functie probeert data, met een fetch request, op te halen van webservice
   // wacht vervolgens de response af, als de response correct is, vult het de pancakeData
   // met de data uit het response.
@@ -53,7 +80,7 @@ export default function App() {
     <NavigationContainer theme={isDarkMode ? nightTheme : lightTheme}>
       <StatusBar style={isDarkMode ? "light" : "dark"} />
       {/* Geef de darkMode mee als properties naar de MyTabs component*/}
-      <MyTabs isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} pancakeData={pancakeData}/>
+      <MyTabs isDarkMode={isDarkMode} setIsDarkMode={handleDarkModeChange} pancakeData={pancakeData}/>
     </NavigationContainer>
   );
 }

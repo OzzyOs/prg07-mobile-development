@@ -10,6 +10,7 @@ const Tab = createBottomTabNavigator();
 export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
   return (
     <Tab.Navigator>
+
       <Tab.Screen
         name="Favorites"
         component={FavoritesScreen}
@@ -25,6 +26,7 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
           ),
         }}
       />
+
       <Tab.Screen
         name="Pancake Finder"
         options={{
@@ -55,6 +57,7 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
           ),
         }}
       />
+      
     </Tab.Navigator>
   );
 }

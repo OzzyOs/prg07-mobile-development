@@ -28,6 +28,7 @@ export default function MapScreen({pancakeData}) {
                     >
                         <Callout>
                             <View style={{maxWidth: 200, height: 150, display: 'flex', overflow:'hidden'}}>
+                                <Text style={{fontWeight: 'bold', marginBottom: 5}}>{i?.name}</Text>
                                 <Text>{i?.description}</Text>
                             </View>
                         </Callout>
