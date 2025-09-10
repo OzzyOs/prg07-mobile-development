@@ -1,16 +1,41 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
-export default function FavoritesScreen() {
+export default function FavoritesScreen({pancakeData}) {
 
     const { colors } = useTheme();
 
-    return (
-        <React.Fragment>
+      if (!pancakeData || pancakeData.length === 0) {
+        return (
             <View style={{ flex: 1, marginTop: 25 }}>
-                <Text style={{ alignSelf:'center', color: colors.text }}> It seems you have no favorites yet.. </Text>
+                <Text style={{ alignSelf: 'center', color: colors.text }}>
+                    It seems there are no restaurants to be loaded..
+                </Text>
             </View>
-        </React.Fragment>
-    )
+        );
+    }
+
+    return (
+        <View style={{ flex: 1, marginTop: 15 }}>
+            <FlatList
+                data={pancakeData}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => (
+                    <View style={{ 
+                        padding: 16,
+                        borderBottomWidth: 1,
+                        borderBottomColor: colors.border,
+                    }}>
+                        <Text style={{ color: colors.text, fontSize: 18 }}>
+                            {item.name}
+                        </Text>
+                        <Text style={{ color: colors.text }}>
+                            {item.description}
+                        </Text>
+                    </View>
+                )}
+            />
+        </View>
+    );
 }

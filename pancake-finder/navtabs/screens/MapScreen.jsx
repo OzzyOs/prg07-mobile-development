@@ -1,9 +1,12 @@
 import {View, StyleSheet, Text} from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
+import { useTheme } from '@react-navigation/native';
+
 // import data from '../../data/pancakes.json';
 
 export default function MapScreen({pancakeData}) {
     const data = pancakeData ?? [];
+    const { colors } = useTheme();
     // console.log(data);
 
     return (
@@ -26,10 +29,10 @@ export default function MapScreen({pancakeData}) {
                     }}
                     title={i.name}
                     >
-                        <Callout>
-                            <View style={{maxWidth: 200, height: 150, display: 'flex', overflow:'hidden'}}>
-                                <Text style={{fontWeight: 'bold', marginBottom: 5}}>{i?.name}</Text>
-                                <Text>{i?.description}</Text>
+                        <Callout style={{backgroundColor: colors.background}}>
+                            <View style={{maxWidth: 200, height: 150, display: 'flex', overflow:'hidden', backgroundColor: colors.background}}>
+                                <Text style={{fontWeight: 'bold', marginBottom: 5, color: colors.text}}>{i?.name}</Text>
+                                <Text style={{color: colors.text}}>{i?.description}</Text>
                             </View>
                         </Callout>
                         </Marker>

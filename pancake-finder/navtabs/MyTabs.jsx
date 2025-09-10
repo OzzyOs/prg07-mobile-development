@@ -13,8 +13,6 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
 
       <Tab.Screen
         name="Favorites"
-        component={FavoritesScreen}
-        initialParams={{ isDarkMode }}
         options={{
           headerRight: () => (
             <Pressable
@@ -25,7 +23,9 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
             </Pressable>
           ),
         }}
-      />
+      >
+        {props => <FavoritesScreen {...props} pancakeData={pancakeData} isDarkMode={isDarkMode} />}
+      </Tab.Screen>
 
       <Tab.Screen
         name="Pancake Finder"
