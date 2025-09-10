@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MapScreen from './screens/MapScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import FavoritesScreen from './screens/FavoritesScreen';
+import HomeScreen from './screens/HomeScreen';
 
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 
@@ -12,7 +12,7 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
     <Tab.Navigator>
 
       <Tab.Screen
-        name="Favorites"
+        name="Home"
         options={{
           headerRight: () => (
             <Pressable
@@ -24,7 +24,7 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
           ),
         }}
       >
-        {props => <FavoritesScreen {...props} pancakeData={pancakeData} isDarkMode={isDarkMode} />}
+        {props => <HomeScreen {...props} pancakeData={pancakeData} isDarkMode={isDarkMode} />}
       </Tab.Screen>
 
       <Tab.Screen

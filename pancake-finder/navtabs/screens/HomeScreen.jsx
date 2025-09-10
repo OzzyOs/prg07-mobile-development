@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, FlatList} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
-export default function FavoritesScreen({pancakeData}) {
+export default function HomeScreen({pancakeData}) {
 
     const { colors } = useTheme();
 
