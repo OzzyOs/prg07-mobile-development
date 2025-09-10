@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, Pressable} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
-export default function HomeScreen({pancakeData}) {
+export default function HomeScreen({ pancakeData, navigation}) {
 
     const { colors } = useTheme();
 
@@ -22,6 +22,7 @@ export default function HomeScreen({pancakeData}) {
                 data={pancakeData}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
+                    <Pressable onPress={() => navigation.navigate('Pancake Finder', {id: item.id})}>
                     <View style={{ 
                         padding: 16,
                         borderBottomWidth: 1,
@@ -34,6 +35,7 @@ export default function HomeScreen({pancakeData}) {
                             {item.description}
                         </Text>
                     </View>
+                    </Pressable>
                 )}
             />
         </View>
