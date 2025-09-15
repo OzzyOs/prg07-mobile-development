@@ -10,18 +10,34 @@ export default function MapScreen({ pancakeData, route }) {
     const { colors } = useTheme();
     const { id } = route.params || {};
     const markersRef = useRef({}); 
+    const mapRef = useRef(null);
     // console.log(data);
 
     useEffect(() => {
             if (id && markersRef.current[id]) {
-                // Open the callout for the selected marker
+                // Open callout voor geselecteerd restaurant
                 markersRef.current[id].showCallout();
+                
+                // Zoom naar locatie van het geselecteerde restaurant
+                const selected = data.find(item => item.id === id);
+                    if(selected && mapRef.current) {
+                        mapRef.current.animateToRegion({
+                            latitude: selected.coordinates.latitude,
+                            longitude: selected.coordinates.longitude,
+                            latitudeDelta: 0.01,
+                            longitudeDelta: 0.01,
+                        },
+                        // Animatie snelheid
+                        1000
+                    );
+                    }
             }
-        }, [id]);
+        }, [id, data]);
 
     return (
         <View style={{height: "100%"}}>
               <MapView
+                ref={mapRef}
                 style={styles.map}
                 initialRegion={{
                      latitude: 51.9225,

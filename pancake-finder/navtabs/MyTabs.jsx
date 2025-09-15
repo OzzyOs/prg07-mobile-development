@@ -12,22 +12,6 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
     <Tab.Navigator>
 
       <Tab.Screen
-        name="Home"
-        options={({ navigation }) => ({
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Settings')} // Navigate to the Settings screen
-              style={{ marginRight: 15 }}
-            >
-              <Text>⚙️</Text>
-            </Pressable>
-          ),
-        })}
-      >
-        {props => <HomeScreen {...props} pancakeData={pancakeData} isDarkMode={isDarkMode} />}
-      </Tab.Screen>
-
-      <Tab.Screen
         name="Pancake Finder"
         options={({ navigation }) => ({
           headerRight: () => (
@@ -42,6 +26,23 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
       >
           {props => <MapScreen {...props} pancakeData={pancakeData} />}
       </Tab.Screen>
+
+      <Tab.Screen
+        name="Home"
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Settings')} // Navigate to the Settings screen
+              style={{ marginRight: 15 }}
+            >
+              <Text>⚙️</Text>
+            </Pressable>
+          ),
+        })}
+      >
+        {props => <HomeScreen {...props} pancakeData={pancakeData} isDarkMode={isDarkMode} />}
+      </Tab.Screen>
+      
     </Tab.Navigator>
   );
 }
