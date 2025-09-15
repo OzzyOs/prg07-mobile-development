@@ -1,8 +1,12 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import SettingsScreen from './navtabs/screens/SettingsScreen';
 import MyTabs from './navtabs/MyTabs';
 import React, { useState, useEffect, use } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+const Stack = createStackNavigator();
 
 export default function App() {
   // State management
@@ -88,7 +92,33 @@ export default function App() {
     <NavigationContainer theme={isDarkMode ? nightTheme : lightTheme}>
       <StatusBar style={isDarkMode ? "light" : "dark"} />
       {/* Geef de darkMode mee als properties naar de MyTabs component*/}
-      <MyTabs isDarkMode={isDarkMode} setIsDarkMode={handleDarkModeChange} pancakeData={pancakeData}/>
+      <Stack.Navigator>
+        <Stack.Screen
+          name='Back'
+          options={{headerShown: false}}
+          >
+            {props => (
+              <MyTabs 
+                {...props}
+                isDarkMode={isDarkMode} 
+                setIsDarkMode={handleDarkModeChange} 
+                pancakeData={pancakeData}
+          />)}
+        </Stack.Screen>
+
+        <Stack.Screen
+          name='Settings'
+          options={{title: 'Settings'}}
+        >
+          {props=> (
+            <SettingsScreen
+              {...props}
+              isDarkMode={isDarkMode}
+              setIsDarkMode={handleDarkModeChange}
+          />
+          )} 
+        </Stack.Screen>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
