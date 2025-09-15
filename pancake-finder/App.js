@@ -91,7 +91,6 @@ export default function App() {
   return (
     <NavigationContainer theme={isDarkMode ? nightTheme : lightTheme}>
       <StatusBar style={isDarkMode ? "light" : "dark"} />
-      {/* Geef de darkMode mee als properties naar de MyTabs component*/}
       <Stack.Navigator>
         <Stack.Screen
           name='Back'

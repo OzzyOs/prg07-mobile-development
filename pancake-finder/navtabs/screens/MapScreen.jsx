@@ -1,13 +1,23 @@
+import React, { useEffect, useRef } from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import { useTheme } from '@react-navigation/native';
 
 // import data from '../../data/pancakes.json';
 
-export default function MapScreen({pancakeData}) {
+export default function MapScreen({ pancakeData, route }) {
     const data = pancakeData ?? [];
     const { colors } = useTheme();
+    const { id } = route.params || {};
+    const markersRef = useRef({}); 
     // console.log(data);
+
+    useEffect(() => {
+            if (id && markersRef.current[id]) {
+                // Open the callout for the selected marker
+                markersRef.current[id].showCallout();
+            }
+        }, [id]);
 
     return (
         <View style={{height: "100%"}}>
@@ -28,6 +38,7 @@ export default function MapScreen({pancakeData}) {
                         longitude: i.coordinates.longitude,
                     }}
                     title={i.name}
+                    ref={(ref) => (markersRef.current[i.id] = ref)}
                     >
                         <Callout style={{backgroundColor: colors.background}}>
                             <View style={{maxWidth: 200, height: 150, display: 'flex', overflow:'hidden', backgroundColor: colors.background}}>
