@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import { useTheme } from '@react-navigation/native';
+import * as Location from 'expo-location';
 
 // import data from '../../data/pancakes.json';
 
@@ -11,6 +12,7 @@ export default function MapScreen({ pancakeData, route }) {
     const { id } = route.params || {};
     const markersRef = useRef({}); 
     const mapRef = useRef(null);
+    const [location, setLocation] = useState();
     // console.log(data);
 
     useEffect(() => {
@@ -34,6 +36,18 @@ export default function MapScreen({ pancakeData, route }) {
             }
         }, [id, data]);
 
+    useEffect(() => {
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+                if (status !== 'granted') {
+                    console.log('Permission denied');
+                    return;
+                }
+                let loc = await Location.getCurrentPositionAsync({});
+            setLocation(loc.coords);
+        })();
+    }, []);
+
     return (
         <View style={{height: "100%"}}>
               <MapView
@@ -45,6 +59,7 @@ export default function MapScreen({ pancakeData, route }) {
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                 }}
+                showsUserLocation={true}  
                 >
                 {data.map((i, index) => (
                     <Marker 
