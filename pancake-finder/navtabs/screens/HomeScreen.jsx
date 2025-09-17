@@ -32,8 +32,6 @@ export default function HomeScreen({ pancakeData, navigation, addFavorite, remov
                         }}
                     >
                         <View style={{ 
-                                    padding: 15,
-                                    borderBottomWidth: 1,
                                     borderBottomColor: colors.border,
                                 }}>
                             <Pressable onPress={() => navigation.navigate('Pancake Finder', {id: item.id})}>
@@ -47,7 +45,7 @@ export default function HomeScreen({ pancakeData, navigation, addFavorite, remov
                         </View>
                         <View style={{marginTop: 5, borderTopWidth: 0.5}}>
                             <Pressable onPress={() => addFavorite(item)}>
-                                    <Text>Add to favorites</Text> 
+                                    <Text style={{color: colors.text}}>Add to favorites</Text> 
                             </Pressable>
                         </View>
                     </View>
