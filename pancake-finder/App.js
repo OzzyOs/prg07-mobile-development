@@ -138,6 +138,9 @@ export default function App() {
                 isDarkMode={isDarkMode} 
                 setIsDarkMode={handleDarkModeChange} 
                 pancakeData={pancakeData}
+                favorites={favorites}
+                addFavorite={addFavorite}
+                removeFavorite={removeFavorite}
           />)}
         </Stack.Screen>
 
