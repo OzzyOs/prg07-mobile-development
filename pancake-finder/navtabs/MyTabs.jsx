@@ -22,6 +22,14 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
               <Text>⚙️</Text>
             </Pressable>
           ),
+          headerLeft: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Favorites')} // Navigate to the Settings screen
+              style={{ marginLeft: 15 }}
+            >
+              <Text>❤️</Text> 
+            </Pressable>
+          )
         })}
       >
           {props => <MapScreen {...props} pancakeData={pancakeData} />}
@@ -38,11 +46,19 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData }) {
               <Text>⚙️</Text>
             </Pressable>
           ),
+          headerLeft: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Favorites')} // Navigate to the Settings screen
+              style={{ marginLeft: 15 }}
+            >
+              <Text>❤️</Text> 
+            </Pressable>
+          )
         })}
       >
         {props => <HomeScreen {...props} pancakeData={pancakeData} isDarkMode={isDarkMode} />}
       </Tab.Screen>
-      
+
     </Tab.Navigator>
   );
 }

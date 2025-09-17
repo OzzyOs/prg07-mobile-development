@@ -5,6 +5,7 @@ import MyTabs from './navtabs/MyTabs';
 import React, { useState, useEffect, use } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import FavoritesScreen from './navtabs/screens/FavoritesScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,6 +13,7 @@ export default function App() {
   // State management
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [pancakeData, setPancakeData] = useState([]);
+  const [favorites, setFavorites] = useState([])
 
   // Dit zijn de custom kleuren voor de "light theme".
   const lightTheme = {
@@ -35,6 +37,26 @@ export default function App() {
     }
   }
 
+  const saveFavorites = async (favoritesArray) => {
+    try {
+      await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray));
+    } catch (error) {
+      console.error('Error saving favorites:', error);
+    }
+  };
+
+  const addFavorite = (item) => {
+    const updatedFavorites = [...favorites, item];
+    setFavorites(updatedFavorites);
+    saveFavorites(updatedFavorites);
+  };
+
+  const removeFavorite = (item) => {
+    const updatedFavorites = favorites.filter(fav => fav.id !== item.id);
+    setFavorites(updatedFavorites);
+    saveFavorites(updatedFavorites);
+  };
+
   // Functie om UI kleuren lokaal op te slaan.
   const saveDarkMode = async (value) => {
     try {
@@ -49,6 +71,20 @@ export default function App() {
     setIsDarkMode(value);
     saveDarkMode(value);
   };
+
+  useEffect(() => {
+  const loadFavorites = async () => {
+    try {
+      const savedFavorites = await AsyncStorage.getItem('favorites');
+      if (savedFavorites !== null) {
+        setFavorites(JSON.parse(savedFavorites));
+      }
+    } catch (error) {
+      console.error('Error loading favorites:', error);
+    }
+  };
+  loadFavorites();
+}, []);
 
   // Deze functie voert zich uit op elke refresh van de applicatie.
   // variabel probeert de opgeslagen darkmode op te halen
@@ -114,6 +150,21 @@ export default function App() {
               {...props}
               isDarkMode={isDarkMode}
               setIsDarkMode={handleDarkModeChange}
+          />
+          )} 
+        </Stack.Screen>
+
+        <Stack.Screen
+          name='Favorites'
+          options={{title: 'Favorites'}}
+        >
+          {props=> (
+            <FavoritesScreen
+              {...props}
+              isDarkMode={isDarkMode}
+              favorites={favorites}
+              addFavorite={addFavorite}
+              removeFavorite={removeFavorite}
           />
           )} 
         </Stack.Screen>
