@@ -18,33 +18,38 @@ export default function HomeScreen({ pancakeData, navigation, addFavorite, remov
 
     console.log()
     return (
-        <View style={{ flex: 1, marginTop: 15 }}>
+        <View style={{ flex: 1, padding: 10 }}>
             <FlatList
                 data={pancakeData}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <View>
-                    <View>
-                        <Pressable onPress={() => navigation.navigate('Pancake Finder', {id: item.id})}>
-                            <View style={{ 
-                                padding: 16,
-                                borderBottomWidth: 1,
-                                borderBottomColor: colors.border,
-                            }}>
-                                <Text style={{ color: colors.text, fontSize: 18 }}>
-                                    {item.name}
-                                </Text>
-                                <Text style={{ color: colors.text }}>
-                                    {item.description}
-                                </Text>
-                            </View>
-                        </Pressable>
-                    </View>
-                    <View style={{height: 20, borderBottomWidth: 0.5, borderTopWidth: 0.5}}>
-                    <Pressable onPress={() => addFavorite(item)}>
-                               <Text> Fav</Text> 
-                    </Pressable>
-                    </View>
+                    <View
+                        style={{
+                        padding: 15,
+                        marginBottom: 10,
+                        borderRadius: 8,
+                        backgroundColor: colors.card || '#ddd',
+                        }}
+                    >
+                        <View style={{ 
+                                    padding: 15,
+                                    borderBottomWidth: 1,
+                                    borderBottomColor: colors.border,
+                                }}>
+                            <Pressable onPress={() => navigation.navigate('Pancake Finder', {id: item.id})}>
+                                    <Text style={{ color: colors.text, fontSize: 16, fontWeight: '500' }}>
+                                        {item.name}
+                                    </Text>
+                                    <Text style={{color: colors.text, marginTop: 5  }}>
+                                        {item.description}
+                                    </Text>
+                            </Pressable>
+                        </View>
+                        <View style={{marginTop: 5, borderTopWidth: 0.5}}>
+                            <Pressable onPress={() => addFavorite(item)}>
+                                    <Text>Add to favorites</Text> 
+                            </Pressable>
+                        </View>
                     </View>
                 )}
             />

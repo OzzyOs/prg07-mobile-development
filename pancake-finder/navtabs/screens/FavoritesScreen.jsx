@@ -1,7 +1,7 @@
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
-export default function FavoritesScreen({ favorites }) {
+export default function FavoritesScreen({ favorites, removeFavorite }) {
   const { colors } = useTheme();
 
   if (!favorites || favorites.length === 0) {
@@ -14,8 +14,8 @@ export default function FavoritesScreen({ favorites }) {
 
   return (
     <View style={{ flex: 1, padding: 10 }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.text, marginBottom: 10 }}>
-        Favorites
+      <Text style={{ alignSelf: 'center',fontSize: 20, fontWeight: 'bold', color: colors.text, marginBottom: 10 }}>
+        Current favorites
       </Text>
 
       <FlatList
@@ -36,6 +36,9 @@ export default function FavoritesScreen({ favorites }) {
             <Text style={{ color: colors.text, marginTop: 5 }}>
               {item.description}
             </Text>
+            <Pressable onPress={()=> removeFavorite(item)} style={{marginTop: 5, borderTopWidth: 0.5}}>
+                <Text style={{color: 'red'}}>Remove from favorites</Text>
+            </Pressable>
           </View>
         )}
       />
