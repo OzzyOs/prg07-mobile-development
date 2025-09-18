@@ -14,6 +14,8 @@ export default function App() {
   const [pancakeData, setPancakeData] = useState([]);
   const [favorites, setFavorites] = useState([])
 
+
+
   // Dit zijn de custom kleuren voor de "light theme".
   const lightTheme = {
     ...DefaultTheme,
