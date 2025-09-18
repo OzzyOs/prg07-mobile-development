@@ -6,6 +6,7 @@ import React, { useState, useEffect, use } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import FavoritesScreen from './navtabs/screens/FavoritesScreen';
+import MapScreen from './navtabs/screens/MapScreen';
 
 const Stack = createStackNavigator();
 
@@ -145,6 +146,19 @@ export default function App() {
         </Stack.Screen>
 
         <Stack.Screen
+          name="Map"
+          options={{ title: 'Pancake Map' }}
+        >
+            {props => (
+              <MapScreen
+                {...props}
+                pancakeData={pancakeData}
+              />
+            )}
+        </Stack.Screen>
+        
+
+        <Stack.Screen
           name='Settings'
           options={{title: 'Settings'}}
         >
@@ -168,6 +182,7 @@ export default function App() {
               favorites={favorites}
               addFavorite={addFavorite}
               removeFavorite={removeFavorite}
+              pancakeData={pancakeData}
           />
           )} 
         </Stack.Screen>

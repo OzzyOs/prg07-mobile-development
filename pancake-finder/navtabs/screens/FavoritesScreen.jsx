@@ -1,7 +1,7 @@
-import { View, Text, FlatList, Pressable } from 'react-native';
+import { View, Text, FlatList, Pressable, Alert } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
-export default function FavoritesScreen({ favorites, removeFavorite }) {
+export default function FavoritesScreen({ navigation, favorites, removeFavorite, pancakeData }) {
   const { colors } = useTheme();
 
   if (!favorites || favorites.length === 0) {
@@ -30,13 +30,15 @@ export default function FavoritesScreen({ favorites, removeFavorite }) {
               backgroundColor: colors.card || '#ddd',
             }}
           >
-            <Text style={{ color: colors.text, fontSize: 16, fontWeight: '500' }}>
-              {item.name}
-            </Text>
-            <Text style={{ color: colors.text, marginTop: 5 }}>
-              {item.description}
-            </Text>
-            <Pressable onPress={()=> removeFavorite(item)} style={{marginTop: 5, borderTopWidth: 0.5}}>
+            <Pressable onPress={() => navigation.navigate('Map', {id: item.id, pancakeData})}>            
+                <Text style={{ color: colors.text, fontSize: 16, fontWeight: '500' }}>
+                    {item.name}
+                </Text>
+                <Text style={{ color: colors.text, marginTop: 5 }}>
+                    {item.description}
+                </Text>
+            </Pressable>
+            <Pressable onPress={()=> {removeFavorite(item); Alert.alert('Restaurant has been removed from favorites!')}} style={{marginTop: 5, borderTopWidth: 0.5}}>
                 <Text style={{color: 'red'}}>Remove from favorites</Text>
             </Pressable>
           </View>

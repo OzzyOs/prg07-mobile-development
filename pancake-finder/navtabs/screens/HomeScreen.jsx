@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList, Pressable} from 'react-native';
+import {View, Text, FlatList, Pressable, Alert} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
-export default function HomeScreen({ pancakeData, navigation, addFavorite, removeFavorite}) {
+export default function HomeScreen({ pancakeData, navigation, addFavorite}) {
 
     const { colors } = useTheme();
-    const [favorites, setFavorites] = useState(favorites || [])
-      if (!pancakeData || pancakeData.length === 0) {
+
+    if (!pancakeData || pancakeData.length === 0) {
         return (
             <View style={{ flex: 1, marginTop: 25 }}>
                 <Text style={{ alignSelf: 'center', color: colors.text }}>
@@ -44,8 +44,11 @@ export default function HomeScreen({ pancakeData, navigation, addFavorite, remov
                             </Pressable>
                         </View>
                         <View style={{marginTop: 5, borderTopWidth: 0.5}}>
-                            <Pressable onPress={() => addFavorite(item)}>
-                                    <Text style={{color: colors.text}}>Add to favorites</Text> 
+                            <Pressable onPress={() => {
+                                addFavorite(item); 
+                                Alert.alert('Added to favorites!'); 
+                            }}>                                    
+                            <Text style={{color:'green'}}>Add to favorites</Text> 
                             </Pressable>
                         </View>
                     </View>
