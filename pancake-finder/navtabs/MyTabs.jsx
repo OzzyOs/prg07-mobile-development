@@ -6,7 +6,7 @@ import { Text, Pressable, StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData, addFavorite, removeFavorite, favorites }) {
+export default function MyTabs({ isDarkMode, pancakeData, addFavorite, removeFavorite, favorites }) {
 
   return (
     <Tab.Navigator>
@@ -22,14 +22,6 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData, addFavo
               <Text>⚙️</Text>
             </Pressable>
           ),
-          headerLeft: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Favorites')} // Navigate to the Settings screen
-              style={{ marginLeft: 15 }}
-            >
-              <Text>❤️</Text> 
-            </Pressable>
-          )
         })}
       >
           {props => <MapScreen {...props} pancakeData={pancakeData} />}
@@ -46,14 +38,6 @@ export default function MyTabs({ isDarkMode, setIsDarkMode, pancakeData, addFavo
               <Text>⚙️</Text>
             </Pressable>
           ),
-          headerLeft: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Favorites')} // Navigate to the Settings screen
-              style={{ marginLeft: 15 }}
-            >
-              <Text>❤️</Text> 
-            </Pressable>
-          )
         })}
       >
         {props => <HomeScreen {...props} pancakeData={pancakeData} isDarkMode={isDarkMode} favorites={favorites} addFavorite={addFavorite} removeFavorite={removeFavorite} />}

@@ -13,7 +13,6 @@ export default function MapScreen({ pancakeData, route }) {
     const markersRef = useRef({}); 
     const mapRef = useRef(null);
     const [location, setLocation] = useState();
-    // console.log(data);
 
     useEffect(() => {
             if (id && markersRef.current[id]) {
@@ -83,6 +82,7 @@ export default function MapScreen({ pancakeData, route }) {
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
