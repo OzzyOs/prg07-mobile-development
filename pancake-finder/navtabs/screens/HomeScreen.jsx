@@ -1,11 +1,19 @@
+import React, {useEffect} from 'react'
 import {View, Text, FlatList, Pressable, Alert, StyleSheet} from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen({ pancakeData, navigation, addFavorite, removeFavorite, favorites}) {
 
     const { colors } = useTheme();
 
-
+    const logFavorites = async () => {
+    const favs = await AsyncStorage.getItem('favorites');
+    console.log('Favorites in AsyncStorage:', favs ? JSON.parse(favs) : []);
+    };
+    useEffect(() => {
+        logFavorites();
+        }, []);
     // If list is empty
     if (!pancakeData || pancakeData.length === 0) {
         return (

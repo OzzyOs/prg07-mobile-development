@@ -35,6 +35,25 @@ export default function App() {
       text: "white",
     }
   }
+
+  const savePancakeData = async (data) => {
+    try{
+      await AsyncStorage.setItem('pancakeData', JSON.stringify(data));
+    } catch (error) {
+      console.error('Error saving restaurants:', error);
+    }
+  }
+
+  const loadPancakeData = async (data) => {
+    try {
+      const savedData = await AsyncStorage.getItem('pancakeData');
+      if (savedData !== null) {
+        setPancakeData(JSON.parse(savedData))
+      }
+    } catch (error) {
+      console.error('Error loading pancake data:', error);
+    }
+  }
   // Slaat favorites array op in de LocalStorage.
   const saveFavorites = async (favoritesArray) => {
     try {
@@ -68,31 +87,13 @@ export default function App() {
     }
   }
 
-  // Handler om darkMode te registreren.
+  // Handler voor darkMode
   const handleDarkModeChange = (value) => {
     setIsDarkMode(value);
     saveDarkMode(value);
   };
 
-  useEffect(() => {
-  const loadFavorites = async () => {
-    try {
-      const savedFavorites = await AsyncStorage.getItem('favorites');
-      if (savedFavorites !== null) {
-        setFavorites(JSON.parse(savedFavorites));
-      }
-    } catch (error) {
-      console.error('Error loading favorites:', error);
-    }
-  };
-  loadFavorites();
-}, []);
-
-  // Deze functie voert zich uit op elke refresh van de applicatie.
-  // variabel probeert de opgeslagen darkmode op te halen
-  // als de waarde bestaat, parse JSON string naar een boolean
-  // & update the staat van de applicatie met de 'setIsDarkMode'.
-  // Als er geen waarde is gevonden houd de applicatie de standaard staat.
+  // Laad darkMode
   useEffect(()=> {
     const loadDarkMode = async () => {
       try {
@@ -106,6 +107,22 @@ export default function App() {
     };
     loadDarkMode(); 
   }, [])
+
+  // Laad favorieten
+  useEffect(() => {
+  const loadFavorites = async () => {
+    try {
+      const savedFavorites = await AsyncStorage.getItem('favorites');
+      if (savedFavorites !== null) {
+        setFavorites(JSON.parse(savedFavorites));
+      }
+    } catch (error) {
+      console.error('Error loading favorites:', error);
+    }
+  };
+  loadFavorites();
+  }, []);
+
   
   // Deze functie probeert data, met een fetch request, op te halen van webservice
   // wacht vervolgens de response af, als de response correct is, vult het de pancakeData
@@ -116,8 +133,10 @@ export default function App() {
             const pancakeData = await response.json();
             console.log(pancakeData)
             setPancakeData(pancakeData);
+            savePancakeData(pancakeData) // Sla op naar AsyncStorage
         } catch (error) {
             console.error(error);
+            loadPancakeData();
         }
     };
 
