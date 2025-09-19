@@ -14,8 +14,6 @@ export default function App() {
   const [pancakeData, setPancakeData] = useState([]);
   const [favorites, setFavorites] = useState([])
 
-
-
   // Dit zijn de custom kleuren voor de "light theme".
   const lightTheme = {
     ...DefaultTheme,
@@ -37,7 +35,7 @@ export default function App() {
       text: "white",
     }
   }
-
+  // Slaat favorites array op in de LocalStorage.
   const saveFavorites = async (favoritesArray) => {
     try {
       await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray));
@@ -46,12 +44,15 @@ export default function App() {
     }
   };
 
+  // Voegt een (item) toe aan de favorites array, update de oude array en voegt het opnieuw toe aan de LocalStorage.
   const addFavorite = (item) => {
     const updatedFavorites = [...favorites, item];
     setFavorites(updatedFavorites);
     saveFavorites(updatedFavorites);
   };
 
+  // Verwijdert een (item) van de favorites array, maakt een nieuwe array van de favorites 
+  // met alle items die erin staan, behalve het item met het id van het item wat je wil verwijderen.
   const removeFavorite = (item) => {
     const updatedFavorites = favorites.filter(fav => fav.id !== item.id);
     setFavorites(updatedFavorites);
@@ -130,7 +131,7 @@ export default function App() {
       <StatusBar style={isDarkMode ? "light" : "dark"} />
       <Stack.Navigator>
         <Stack.Screen
-          name='Back'
+          name='Main'
           options={{headerShown: false}}
           >
             {props => (

@@ -14,10 +14,13 @@ export default function MyTabs({ isDarkMode, pancakeData, addFavorite, removeFav
       <Tab.Screen
         name="Pancake Finder"
         options={({ navigation }) => ({
+          tabBarIcon:() => (
+            <Text>🥞</Text>
+          ),
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Settings')} // Navigate to the Settings screen
-              style={{ marginRight: 15 }}
+              style={styles.settingsButton}
             >
               <Text>⚙️</Text>
             </Pressable>
@@ -28,12 +31,15 @@ export default function MyTabs({ isDarkMode, pancakeData, addFavorite, removeFav
       </Tab.Screen>
 
       <Tab.Screen
-        name="Home"
+        name="Hotspots"
         options={({ navigation }) => ({
+          tabBarIcon:() => (
+            <Text>🚩</Text>
+          ),
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Settings')} // Navigate to the Settings screen
-              style={{ marginRight: 15 }}
+              style={styles.settingsButton}
             >
               <Text>⚙️</Text>
             </Pressable>
@@ -54,7 +60,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginRight: 10
     },
-
+    settingsButton: {
+      marginRight: 15
+    }
 })
 
 

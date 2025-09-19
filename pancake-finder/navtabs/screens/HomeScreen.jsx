@@ -1,14 +1,16 @@
-import {View, Text, FlatList, Pressable, Alert} from 'react-native';
+import {View, Text, FlatList, Pressable, Alert, StyleSheet} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
 export default function HomeScreen({ pancakeData, navigation, addFavorite, removeFavorite, favorites}) {
 
     const { colors } = useTheme();
 
+
+    // If list is empty
     if (!pancakeData || pancakeData.length === 0) {
         return (
-            <View style={{ flex: 1, marginTop: 25 }}>
-                <Text style={{ alignSelf: 'center', color: colors.text }}>
+            <View style={styles.emptyList}>
+                <Text style={[styles.emptyListText, {color: colors.text}]}>
                     It seems there are no restaurants to be loaded..
                 </Text>
             </View>
@@ -16,7 +18,7 @@ export default function HomeScreen({ pancakeData, navigation, addFavorite, remov
     }
 
     return (
-        <View style={{ flex: 1, padding: 10 }}>
+        <View style={styles.container}>
             <FlatList
                 data={pancakeData}
                 keyExtractor={(item) => item.id.toString()}
@@ -24,29 +26,24 @@ export default function HomeScreen({ pancakeData, navigation, addFavorite, remov
                     const isFavorite = favorites.some(fav => fav.id === item.id);
                     return (
                         <View
-                            style={{
-                                padding: 15,
-                                marginBottom: 10,
-                                borderRadius: 8,
-                                backgroundColor: colors.card || '#ddd',
-                            }}
+                            style={[styles.listView, { backgroundColor: colors.card || '#ddd' }]}
                         >
                             <View style={{ borderBottomColor: colors.border }}>
                                 <Pressable onPress={() => navigation.navigate('Pancake Finder', {id: item.id})}>
-                                    <Text style={{ color: colors.text, fontSize: 16, fontWeight: '500' }}>
+                                    <Text style={[styles.cardHeader, { color: colors.text }]}>
                                         {item.name}
                                     </Text>
-                                    <Text style={{color: colors.text, marginTop: 5  }}>
+                                    <Text style={[styles.cardDescription, { color: colors.text }]}>
                                         {item.description}
                                     </Text>
                                 </Pressable>
                             </View>
-                            <View style={{marginTop: 5, borderTopWidth: 0.5}}>
+                            <View style={styles.favoriteStyling}>
                                 <Pressable onPress={() => {
                                     isFavorite ? removeFavorite(item) : addFavorite(item);
                                     Alert.alert(isFavorite ? 'Removed from favorites!' : 'Added to favorites!');
                             }}>                                    
-                                <Text style={{ fontSize: 22 }}>
+                                <Text style={styles.favoriteText}>
                                     {isFavorite ? '❤️' : '🤍'}
                                 </Text>                            
                             </Pressable>
@@ -58,3 +55,35 @@ export default function HomeScreen({ pancakeData, navigation, addFavorite, remov
     </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        padding: 10 
+    },
+    cardHeader: {
+        fontSize: 16, 
+        fontWeight: '500'
+    },
+    cardDescription: {
+        marginTop: 5 
+    },
+    favoriteStyling: {
+        marginTop: 5 
+    },
+    favoriteText: {
+         fontSize: 22
+    },
+    listView: {
+        padding: 15,
+        marginBottom: 10,
+        borderRadius: 8,
+    },
+    emptyList: {
+        flex: 1, 
+        marginTop: 25 
+    },
+    emptyListText: {
+        alignSelf: 'center'
+    }
+})

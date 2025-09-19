@@ -48,7 +48,7 @@ export default function MapScreen({ pancakeData, route }) {
     }, []);
 
     return (
-        <View style={{height: "100%"}}>
+        <View style={styles.mapContainer}>
               <MapView
                 ref={mapRef}
                 style={styles.map}
@@ -70,12 +70,12 @@ export default function MapScreen({ pancakeData, route }) {
                     title={i.name}
                     ref={(ref) => (markersRef.current[i.id] = ref)}
                     >
-                        <Callout style={{backgroundColor: colors.background}}>
-                            <View style={{maxWidth: 200, height: 150, display: 'flex', overflow:'hidden', backgroundColor: colors.background}}>
-                                <Text style={{fontWeight: 'bold', marginBottom: 5, color: colors.text}}>{i?.name}</Text>
-                                <Text style={{color: colors.text}}>{i?.description}</Text>
-                            </View>
-                        </Callout>
+                            <Callout>
+                                <View style={[styles.innerCallout, {backgroundColor: colors.background}]}>
+                                    <Text style={[styles.calloutHeader, {color: colors.text}]}>{i?.name}</Text>
+                                    <Text style={{color: colors.text}}>{i?.description}</Text>
+                                </View>
+                            </Callout>
                         </Marker>
                 ))}
             </MapView>     
@@ -89,5 +89,17 @@ const styles = StyleSheet.create({
     },
     map: {
         flex: 1,
+    },
+    mapContainer: {
+        height: "100%"
+    },
+    innerCallout: {
+        padding: 10, 
+        width: 250,
+        height: 150, 
+    },
+    calloutHeader: {
+        fontWeight: 'bold', 
+        marginBottom: 5, 
     },
 });
